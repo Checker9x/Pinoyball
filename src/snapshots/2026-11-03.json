@@ -1,0 +1,106 @@
+{
+  "checkedDate": "2026-11-03",
+  "sources": {
+    "schedule": {
+      "label": "NBA official 2026–27 schedule · page 3 (ET)",
+      "url": "https://ak-static.cms.nba.com/wp-content/uploads/sites/46/2026/08/2026-27-NBA-Regular-Season-Schedule-By-Date.pdf#page=3",
+      "note": "Published August 13, 2026; accessed November 3. Matchups and start times cross-checked against current schedule listings. Subject to change."
+    },
+    "records": {
+      "label": "Plain Text Sports · 2026–27 NBA schedule & records",
+      "url": "https://plaintextsports.com/nba/2026-2027/schedule",
+      "note": "Snapshot published November 3 at approximately 4:00 AM ET (5:00 PM PHT). Season records, not last-five form. Secondary source."
+    },
+    "rankings": {
+      "label": "NBA.com · Week 3 analysis, November 2",
+      "url": "https://www.nba.com/news/power-rankings-2026-27-week-3",
+      "note": "Context for the previous Detroit–Philadelphia meeting; not a current injury report."
+    }
+  },
+  "games": [
+    {
+      "slug": "76ers-pistons-2026-11-05",
+      "date": "2026-11-05T00:00:00Z",
+      "league": "NBA",
+      "home": "Detroit Pistons",
+      "away": "Philadelphia 76ers",
+      "pick": "Wait for lineup confirmation",
+      "level": "No pick",
+      "record": "6–1 / 7–1",
+      "summary": "Two strong starts, but not enough separation for a responsible pick before lineups are confirmed.",
+      "reasons": [
+        "Both teams have only one loss in the November 3 records snapshot.",
+        "Our read: the earlier meeting is not a clean guide to this rematch."
+      ],
+      "risk": "Confirmed availability could change the balance substantially. Without a current official injury report, we are withholding a winner selection.",
+      "analysis": "The records show two successful starts, not a clear matchup advantage. Detroit is at home, but Philadelphia’s extra win is not enough by itself to settle the question. Our decision is to wait rather than assign false precision to a small sample.",
+      "history": "Detroit won the earlier meeting; Philadelphia was without Joel Embiid. That limits its predictive value.",
+      "historySource": "rankings",
+      "gameSource": "https://www.nba.com/game/phi-vs-det-0022600173",
+      "sourceNote": "NBA game page confirms November 4, 7:00 PM ET."
+    },
+    {
+      "slug": "bucks-celtics-2026-11-05",
+      "date": "2026-11-05T00:30:00Z",
+      "league": "NBA",
+      "home": "Boston Celtics",
+      "away": "Milwaukee Bucks",
+      "pick": "Boston Celtics",
+      "level": "Slight lean",
+      "record": "5–2 / 1–6",
+      "summary": "Boston is our provisional winner pick, with the stronger early record and the home floor.",
+      "reasons": [
+        "Boston’s 5–2 start compares with Milwaukee’s 1–6 in the records snapshot.",
+        "Our read: home court reinforces that early-season edge, but does not make it decisive."
+      ],
+      "risk": "A small sample can exaggerate team differences. Unconfirmed absences, lineup changes or an unusually hot shooting night could reverse this lean.",
+      "analysis": "Our selection is a limited, record-based lean toward Boston. The gap in early results is meaningful enough to choose a side, but we have not adjusted it for opponent strength or verified current lineups. Keep the confidence modest: this is a straight-up editorial pick, not a spread recommendation or modeled probability.",
+      "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
+      "historySource": null,
+      "gameSource": null,
+      "sourceNote": "Official schedule lists Milwaukee at Boston on November 4, 7:30 PM ET."
+    },
+    {
+      "slug": "timberwolves-rockets-2026-11-05",
+      "date": "2026-11-05T01:30:00Z",
+      "league": "NBA",
+      "home": "Houston Rockets",
+      "away": "Minnesota Timberwolves",
+      "pick": "Houston Rockets",
+      "level": "Slight lean",
+      "record": "7–1 / 5–3",
+      "summary": "Houston gets the early lean at home, while the recent matchup history keeps confidence restrained.",
+      "reasons": [
+        "Houston’s 7–1 record is stronger than Minnesota’s 5–3 in the snapshot.",
+        "Our read: the home setting supports Houston; the head-to-head counterargument deserves weight."
+      ],
+      "risk": "Minnesota has shown it can win this matchup. If Houston’s expected contributors are unavailable, or Minnesota controls the late possessions, the record-based edge may not hold.",
+      "analysis": "We favor Houston on the limited evidence of early-season results and venue. We do not interpret the standings as a measure of matchup quality. The historical counterexample is a reason to keep this a slight lean, not elevate it to a confident forecast. No current player availability is assumed.",
+      "history": "Minnesota won the March 25 and April 10, 2026 meetings. Rosters and circumstances can change.",
+      "historySource": "game",
+      "gameSource": "https://www.nba.com/game/MIN-vs-HOU-0022600181",
+      "sourceNote": "NBA game page confirms November 4, 8:30 PM ET and lists previous meetings."
+    },
+    {
+      "slug": "lakers-kings-2026-11-05",
+      "date": "2026-11-05T03:00:00Z",
+      "league": "NBA",
+      "home": "Sacramento Kings",
+      "away": "Los Angeles Lakers",
+      "pick": "Los Angeles Lakers",
+      "level": "Slight lean",
+      "record": "1–6 / 6–2",
+      "summary": "The Lakers’ early results support an away-team lean, with Sacramento’s home court as the counterweight.",
+      "reasons": [
+        "Los Angeles is 6–2 and Sacramento 1–6 in the November 3 snapshot.",
+        "Our read: that early edge outweighs the venue, subject to lineup verification."
+      ],
+      "risk": "Sacramento is at home. A lineup surprise or a major shooting swing could outweigh the early-record gap, particularly in a single game.",
+      "analysis": "Our lean follows the stronger early record rather than assuming a road win is routine. The previous season offers supporting context, but those results are not a substitute for present-day availability or a current matchup model. We have not verified a game-day injury report, so this remains provisional.",
+      "history": "Los Angeles won three of the four 2025–26 meetings listed on the NBA game page.",
+      "historySource": "game",
+      "gameSource": "https://www.nba.com/game/lal-vs-sac-0022600185",
+      "sourceNote": "NBA game page confirms November 4, 10:00 PM ET and lists previous meetings."
+    }
+  ]
+}
