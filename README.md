@@ -74,7 +74,9 @@ npm run dev
 
 ---
 
-## 5. Worker SOP: Manual Daily Tasks
+## 5. Worker SOP: Manual Daily Tasks (`src/data.mjs` Only)
+
+You **only** ever need to edit **`src/data.mjs`** (you do not need to touch `public/app.js` or `scripts/test.mjs`).
 
 ### Task A: Move Completed Games to the Archive
 When an upcoming game finishes and you want to move it from Homepage `Upcoming predictions` into `/archive/`:
@@ -86,23 +88,20 @@ When an upcoming game finishes and you want to move it from Homepage `Upcoming p
    "finalScore": "109–102"       // Winning score first, separated by en dash
    ```
 3. Run `npm run build && npm test` — the game moves to `/archive/` and the overall Win % updates automatically during the build.
-4. *(Note: If you also check specific day assertions in `scripts/test.mjs`, update lines 18–19 to match the current upcoming vs. archived dates.)*
 
 ### Task B: Add New Upcoming Predictions
 1. **Add Game Entries to `src/data.mjs`:**
-   - Append new game objects to `games` in **strict chronological order** by ISO UTC `date` (e.g., `'2026-11-13T00:30:00Z'`).
+   - Copy the sample upcoming game object in `games` (`src/data.mjs`) as a template (or replace it).
+   - Keep `games` in **strict chronological order** by ISO UTC `date` (e.g., `'2026-11-13T00:30:00Z'`).
    - Set `"archived": false`, `"winner": ""`, and `"finalScore": ""`.
-   - **Never delete past games:** Keep archived games in `games` so the `/archive/` history and Win/Loss percentage remain intact.
+   - **Never delete archived games:** Keep completed games (`"archived": true`) in `games` so the `/archive/` history and Win/Loss percentage remain intact.
    - **Unique slug format:** `<away-short>-<home-short>-<YYYY-MM-DD-PHT>`.
    - **Confidence levels (`level`):** `'Lean'`, `'Slight lean'`, `'Stronger lean'`, or `'No pick'` (for `'No pick'`, set `pick` to `'Wait for official injury report'`).
-2. **Register Slug & Test Expectations:**
-   - Add `'espnId': 'slug'` to `featuredSlugs` in `public/app.js`.
-   - Update `expectedPHT` and date checks in `scripts/test.mjs`.
-3. **Follow Strict SEO Character Limits (Checked by `npm test`):**
+2. **Follow Strict SEO Character Limits (Checked by `npm test`):**
    - **Title (`seoTitle`):** **37 to 47 characters** (`50 to 60 characters` total with ` | Pinoy Ball`).
    - **Meta Description (`seoDescription`):** **145 to 160 characters**.
    - **Logos:** Use ESPN CDN NBA scoreboard URLs (`https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/<abbr>.png`).
-4. **Build, Test & Deploy:**
+3. **Build, Test & Deploy:**
    ```bash
    npm run build && npm test
    git add .

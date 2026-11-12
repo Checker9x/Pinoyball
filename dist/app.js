@@ -40,49 +40,16 @@ const espnGrid=document.querySelector('#espn-grid');
 const espnStatus=document.querySelector('#espn-status');
 const espnCount=document.querySelector('#espn-slate-count');
 
-const featuredSlugs={
-  '401909922':'76ers-pistons-2026-11-05',
-  '401909924':'bucks-celtics-2026-11-05',
-  '401909930':'timberwolves-rockets-2026-11-05',
-  '401909934':'lakers-kings-2026-11-05',
-  '401909287':'wizards-hawks-2026-11-07',
-  '401909288':'celtics-hornets-2026-11-07',
-  '401909289':'76ers-cavaliers-2026-11-07',
-  '401909290':'jazz-mavericks-2026-11-07',
-  '401909291':'thunder-grizzlies-2026-11-07',
-  '401909292':'raptors-bucks-2026-11-07',
-  '401909293':'timberwolves-pelicans-2026-11-07',
-  '401909294':'blazers-lakers-2026-11-07',
-  '401909295':'spurs-kings-2026-11-07',
-  '401909938':'nuggets-pacers-2026-11-08',
-  '401909939':'nets-hawks-2026-11-08',
-  '401909940':'knicks-cavaliers-2026-11-08',
-  '401909941':'wizards-thunder-2026-11-08',
-  '401909942':'magic-warriors-2026-11-08',
-  '401909943':'rockets-suns-2026-11-08',
-  '401909944':'spurs-blazers-2026-11-08',
-  '401909945':'76ers-bulls-2026-11-09',
-  '401909946':'lakers-pistons-2026-11-09',
-  '401909947':'jazz-timberwolves-2026-11-09',
-  '401909948':'nets-mavericks-2026-11-09',
-  '401909949':'celtics-bucks-2026-11-09',
-  '401909950':'pelicans-clippers-2026-11-09',
-  '401909951':'heat-kings-2026-11-09',
-  '401909952':'lakers-hawks-2026-11-10',
-  '401909953':'cavaliers-hornets-2026-11-10',
-  '401909954':'wizards-pistons-2026-11-10',
-  '401909955':'grizzlies-raptors-2026-11-10',
-  '401909956':'pacers-mavericks-2026-11-10',
-  '401909957':'nuggets-rockets-2026-11-10',
-  '401909958':'spurs-suns-2026-11-10',
-  '401909959':'pelicans-warriors-2026-11-10',
-  '401909960':'bucks-knicks-2026-11-11',
-  '401909961':'celtics-76ers-2026-11-11',
-  '401909962':'clippers-suns-2026-11-11',
-  '401909963':'heat-jazz-2026-11-11',
-  '401909964':'magic-kings-2026-11-11',
-  '401909965':'thunder-blazers-2026-11-11'
-};
+let slugMapPromise=null;
+function getFeaturedSlugs(){
+  if(!slugMapPromise){
+    slugMapPromise=fetch('/games.json')
+      .then(r=>r.ok?r.json():[])
+      .then(list=>Object.fromEntries(list.map(g=>[String(g.espnId),g.slug])))
+      .catch(()=>({}));
+  }
+  return slugMapPromise;
+}
 
 function formatPhtTime(iso){
   return new Intl.DateTimeFormat('en-PH',{timeZone:'Asia/Manila',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date(iso));
@@ -169,7 +136,10 @@ async function loadSelectedDateSchedule(){
   if(!espnGrid)return;
   const rawDate=(espnDate?.value||'2026-11-04').replaceAll('-','');
   try{
-    const res=await fetch(`https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=${rawDate}`);
+    const [featuredSlugs,res]=await Promise.all([
+      getFeaturedSlugs(),
+      fetch(`https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=${rawDate}`)
+    ]);
     if(!res.ok)throw Error();
     const data=await res.json();
     const events=data.events||[];
