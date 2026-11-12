@@ -19,8 +19,21 @@ if(menuToggle&&mainNav){
 }
 
 const league=document.querySelector('#league'),day=document.querySelector('#day');
-function filter(){if(!league||!day)return;let count=0;document.querySelectorAll('#predictions .match').forEach(row=>{const isDone=row.dataset.done==='true';row.hidden=isDone||!(league.value==='all'||row.dataset.league===league.value)||!(day.value==='all'||row.dataset.date===day.value);if(!row.hidden)count++});document.querySelectorAll('#predictions .day').forEach(section=>section.hidden=![...section.querySelectorAll('.match')].some(row=>!row.hidden));document.querySelector('#count').textContent=`${count} matchup${count===1?'':'s'}`;document.querySelector('#empty').hidden=count!==0;}
-league?.addEventListener('change',filter);day?.addEventListener('change',filter);
+function filter(){
+  if(!league||!day)return;
+  let count=0;
+  document.querySelectorAll('#predictions .match').forEach(row=>{
+    row.hidden=!(league.value==='all'||row.dataset.league===league.value)||!(day.value==='all'||row.dataset.date===day.value);
+    if(!row.hidden)count++;
+  });
+  document.querySelectorAll('#predictions .day').forEach(section=>{
+    section.hidden=![...section.querySelectorAll('.match')].some(row=>!row.hidden);
+  });
+  document.querySelector('#count').textContent=`${count} matchup${count===1?'':'s'}`;
+  document.querySelector('#empty').hidden=count!==0;
+}
+league?.addEventListener('change',filter);
+day?.addEventListener('change',filter);
 
 const espnDate=document.querySelector('#espn-date');
 const espnGrid=document.querySelector('#espn-grid');
@@ -75,7 +88,7 @@ function formatPhtTime(iso){
   return new Intl.DateTimeFormat('en-PH',{timeZone:'Asia/Manila',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date(iso));
 }
 
-function setLiveStatus(msg){
+function setScheduleStatus(msg){
   if(!espnStatus)return;
   espnStatus.replaceChildren();
   const dot=document.createElement('span');
@@ -152,7 +165,7 @@ function renderScheduleCards(items){
   }
 }
 
-async function syncEspnSchedule(){
+async function loadSelectedDateSchedule(){
   if(!espnGrid)return;
   const rawDate=(espnDate?.value||'2026-11-04').replaceAll('-','');
   try{
@@ -185,19 +198,14 @@ async function syncEspnSchedule(){
     });
     renderScheduleCards(parsed);
     if(espnCount)espnCount.textContent=`${parsed.length} game${parsed.length===1?'':'s'} on slate`;
-    const nowPht=new Intl.DateTimeFormat('en-PH',{timeZone:'Asia/Manila',hour:'numeric',minute:'2-digit',second:'2-digit'}).format(new Date());
-    setLiveStatus(parsed.length?`Auto-updating live · Last synced ${nowPht} PHT`:`No NBA games scheduled on ${espnDate.value} (ET).`);
+    setScheduleStatus(parsed.length?`Showing slate for ${espnDate.value} (ET) · Philippine Standard Time (PHT)`:`No NBA games scheduled on ${espnDate.value} (ET).`);
   }catch{
-    setLiveStatus('Auto-updating live · Philippine Standard Time (PHT)');
+    setScheduleStatus('Philippine Standard Time (PHT)');
   }
 }
 
 if(espnGrid){
-  espnDate?.addEventListener('change',syncEspnSchedule);
-  espnDate?.addEventListener('input',syncEspnSchedule);
-  syncEspnSchedule();
-  setInterval(()=>{if(!document.hidden)syncEspnSchedule();},30000);
-  document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncEspnSchedule();});
+  espnDate?.addEventListener('change',loadSelectedDateSchedule);
 }
 
 const tipAddr=document.querySelector('#tip-address');
@@ -221,21 +229,13 @@ if(phtBadge){
   const phtDayEl=document.querySelector('#pht-day');
   const phtYearEl=document.querySelector('#pht-year');
   const phtTimeEl=document.querySelector('#pht-time');
-  const updatePhtBadge=()=>{
-    const now=new Date();
-    if(phtMonthEl)phtMonthEl.textContent=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Manila',month:'short'}).format(now).toUpperCase();
-    if(phtDayEl)phtDayEl.textContent=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Manila',day:'2-digit'}).format(now);
-    if(phtYearEl)phtYearEl.textContent=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Manila',year:'numeric'}).format(now);
-    if(phtTimeEl)phtTimeEl.textContent=`${new Intl.DateTimeFormat('en-PH',{timeZone:'Asia/Manila',hour:'numeric',minute:'2-digit'}).format(now)} PHT`;
-  };
-  updatePhtBadge();
-  setInterval(updatePhtBadge,10000);
+  const now=new Date();
+  if(phtMonthEl)phtMonthEl.textContent=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Manila',month:'short'}).format(now).toUpperCase();
+  if(phtDayEl)phtDayEl.textContent=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Manila',day:'2-digit'}).format(now);
+  if(phtYearEl)phtYearEl.textContent=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Manila',year:'numeric'}).format(now);
+  if(phtTimeEl)phtTimeEl.textContent=`${new Intl.DateTimeFormat('en-PH',{timeZone:'Asia/Manila',hour:'numeric',minute:'2-digit'}).format(now)} PHT`;
 }
 
-const archiveMatches=document.querySelectorAll('.archive-match[data-espn-id]');
-function toEspnDateParam(iso){
-  return new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(iso)).replaceAll('-','');
-}
 function updateArchiveScorecard(){
   const pctEl=document.querySelector('#archive-win-pct');
   const wlEl=document.querySelector('#archive-wl-count');
@@ -254,112 +254,5 @@ function updateArchiveScorecard(){
   pctEl.textContent=pct;
   wlEl.textContent=`${wins} ${wins===1?'Win':'Wins'} · ${losses} ${losses===1?'Loss':'Losses'}`;
 }
-async function syncArchiveResults(){
-  if(!archiveMatches.length)return;
-  try{
-    const dateParams=[...new Set([...archiveMatches].map(r=>{
-      const iso=r.querySelector('time')?.getAttribute('datetime');
-      return iso?toEspnDateParam(iso):'20261104';
-    }))];
-    const byId=new Map();
-    for(const dp of dateParams){
-      const res=await fetch(`https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=${dp}`);
-      if(!res.ok)continue;
-      const data=await res.json();
-      for(const ev of data.events||[])byId.set(String(ev.id),ev);
-    }
-    for(const row of archiveMatches){
-      const ev=byId.get(row.dataset.espnId);
-      if(!ev)continue;
-      const comp=ev.competitions?.[0]||{};
-      const home=comp.competitors?.find(c=>c.homeAway==='home')||{};
-      const away=comp.competitors?.find(c=>c.homeAway==='away')||{};
-      const isFinal=Boolean(ev.status?.type?.completed||ev.status?.type?.state==='post');
-      const winComp=isFinal?(home.winner?home:(away.winner?away:null)):null;
-      const loseComp=winComp?(winComp===home?away:home):null;
-      const winName=winComp?.team?.displayName||'';
-      const winLogo=winComp?.team?.logo||'';
-      if(winName)row.dataset.winner=winName;
-      const scoreText=winComp&&loseComp?`${winComp.score}–${loseComp.score}`:'';
-      const label=winName?`${winName}${scoreText?` (${scoreText})`:''}`:(ev.status?.type?.shortDetail||'Pending');
-      const resultEl=row.querySelector('[data-role="result-winner"]');
-      if(resultEl)resultEl.textContent=label;
-      const badgeEl=row.querySelector('[data-role="winner-badge"]');
-      if(badgeEl){
-        badgeEl.replaceChildren();
-        const dot=document.createElement('span');
-        dot.className='statusdot';
-        badgeEl.append(dot);
-        if(winLogo){
-          const img=document.createElement('img');
-          img.className='teamlogo';
-          img.src=winLogo;
-          img.alt='';
-          img.width=20;
-          img.height=20;
-          badgeEl.append(img);
-        }
-        const span=document.createElement('span');
-        span.append('Winner: ');
-        const strong=document.createElement('strong');
-        strong.textContent=label;
-        span.append(strong);
-        badgeEl.append(span);
-      }
-    }
-    updateArchiveScorecard();
-  }catch{
-    updateArchiveScorecard();
-  }
-}
 
-if(archiveMatches.length){
-  updateArchiveScorecard();
-  syncArchiveResults();
-  setInterval(()=>{if(!document.hidden)syncArchiveResults();},30000);
-  document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncArchiveResults();});
-}
-
-const upcomingRows=document.querySelectorAll('#predictions .match[data-datetime]');
-async function syncUpcomingLifecycle(){
-  if(!upcomingRows.length)return;
-  const now=new Date();
-  const todayPht=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Manila',year:'numeric',month:'2-digit',day:'2-digit'}).format(now);
-  let changed=false;
-  for(const row of upcomingRows){
-    const dt=row.dataset.datetime;
-    const dKey=row.dataset.date||'';
-    if((dKey&&dKey<todayPht)||(dt&&now.getTime()>=new Date(dt).getTime()+3.5*3600*1000)){
-      if(row.dataset.done!=='true'){
-        row.dataset.done='true';
-        changed=true;
-      }
-    }
-  }
-  try{
-    const dateParams=[...new Set([...upcomingRows].map(r=>r.dataset.datetime?toEspnDateParam(r.dataset.datetime):'').filter(Boolean))];
-    for(const dp of dateParams){
-      const res=await fetch(`https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=${dp}`);
-      if(!res.ok)continue;
-      const data=await res.json();
-      const byId=new Map((data.events||[]).map(ev=>[String(ev.id),ev]));
-      for(const row of upcomingRows){
-        const ev=byId.get(row.dataset.espnId);
-        if(ev&&(ev.status?.type?.completed||ev.status?.type?.state==='post')){
-          if(row.dataset.done!=='true'){
-            row.dataset.done='true';
-            changed=true;
-          }
-        }
-      }
-    }
-  }catch{
-    // Date-based check above still applies offline
-  }
-  if(changed)filter();
-}
-
-if(upcomingRows.length){
-  syncUpcomingLifecycle();
-  setInterval(()=>{if(!document.hidden)syncUpcomingLifecycle();},30000);
-}
+updateArchiveScorecard();

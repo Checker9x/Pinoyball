@@ -4,69 +4,7 @@ import {siteMeta,games,nbaSchedule,sources,espnScoreboardUrl,cryptoTips} from '.
 await rm('dist',{recursive:true,force:true});
 await mkdir('dist',{recursive:true});
 
-let liveSchedule = nbaSchedule;
-const toEtDateParam = iso => new Intl.DateTimeFormat('en-CA', {timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit'}).format(new Date(iso)).replaceAll('-', '');
-try {
-  const byEspnId = new Map(games.map(g => [g.espnId, g.slug]));
-  const gameEtDates = [...new Set(games.map(g => toEtDateParam(g.date)))];
-  const allFetchedEvents = new Map();
-  for (const etDate of gameEtDates) {
-    const res = await fetch(`https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=${etDate}`, {signal: AbortSignal.timeout(4000)});
-    if (res.ok) {
-      const data = await res.json();
-      if (Array.isArray(data.events) && data.events.length > 0) {
-        const mapped = data.events.map(ev => {
-          const comp = ev.competitions?.[0] || {};
-          const home = comp.competitors?.find(c => c.homeAway === 'home') || {};
-          const away = comp.competitors?.find(c => c.homeAway === 'away') || {};
-          const isoDate = ev.date?.length === 17 ? ev.date.replace('Z', ':00Z') : ev.date;
-          const venueName = comp.venue?.fullName || '';
-          const venueCity = comp.venue?.address?.city || '';
-          const isFinal = Boolean(ev.status?.type?.completed || ev.status?.type?.state === 'post');
-          const winnerComp = isFinal ? (home.winner ? home : (away.winner ? away : null)) : null;
-          const loserComp = winnerComp ? (winnerComp === home ? away : home) : null;
-          return {
-            espnId: String(ev.id),
-            date: isoDate,
-            venue: [venueName, venueCity].filter(Boolean).join(', '),
-            home: home.team?.displayName || '',
-            homeAbbr: home.team?.abbreviation || '',
-            homeLogo: home.team?.logo || '',
-            homeRecord: home.records?.[0]?.summary || '',
-            away: away.team?.displayName || '',
-            awayAbbr: away.team?.abbreviation || '',
-            awayLogo: away.team?.logo || '',
-            awayRecord: away.records?.[0]?.summary || '',
-            status: ev.status?.type?.description || 'Scheduled',
-            completed: isFinal,
-            winner: winnerComp?.team?.displayName || '',
-            finalScore: winnerComp && loserComp ? `${winnerComp.score}–${loserComp.score}` : '',
-            predictionSlug: byEspnId.get(String(ev.id)) || null
-          };
-        });
-        for (const item of mapped) allFetchedEvents.set(item.espnId, item);
-        if (etDate === '20261104') {
-          liveSchedule = mapped;
-        }
-      }
-    }
-  }
-  for (const g of games) {
-    const match = allFetchedEvents.get(g.espnId);
-    if (match) {
-      g.homeLogo = match.homeLogo || g.homeLogo;
-      g.awayLogo = match.awayLogo || g.awayLogo;
-      g.homeAbbr = match.homeAbbr || g.homeAbbr;
-      g.awayAbbr = match.awayAbbr || g.awayAbbr;
-      g.venue = match.venue || g.venue;
-      g.completed = match.completed;
-      g.winner = match.winner || g.winner;
-      g.finalScore = match.finalScore || g.finalScore;
-    }
-  }
-} catch {
-  // Fallback to verified snapshot in src/data.mjs when offline
-}
+const liveSchedule = nbaSchedule;
 
 const date=g=>new Intl.DateTimeFormat('en-PH',{timeZone:'Asia/Manila',month:'short',day:'numeric',weekday:'short'}).format(new Date(g.date));
 const time=g=>new Intl.DateTimeFormat('en-PH',{timeZone:'Asia/Manila',hour:'numeric',minute:'2-digit'}).format(new Date(g.date));
@@ -206,8 +144,7 @@ function shell({title, desc, keywords = siteMeta.keywords, body, active = '', ca
 }
 
 const nowPht = new Date();
-const todayPhtKey = new Intl.DateTimeFormat('en-CA', {timeZone: 'Asia/Manila', year: 'numeric', month: '2-digit', day: '2-digit'}).format(nowPht);
-const isGameDone = g => Boolean(g.completed || g.winner || dayKey(g) < todayPhtKey || (nowPht.getTime() >= new Date(g.date).getTime() + 3.5 * 3600 * 1000));
+const isGameDone = g => Boolean(g.archived);
 
 const upcomingGames = games.filter(g => !isGameDone(g));
 const archivedGames = games.filter(g => isGameDone(g));
@@ -237,7 +174,7 @@ for(const day of [...new Set(archivedGames.map(g=>dayKey(g)))]){
   archiveSchedule+=`<section class="day" data-day="${day}"><h3>${date(archivedGames.find(g=>dayKey(g)===day))} <span>All times Philippine Standard Time</span></h3>${archivedGames.filter(g=>dayKey(g)===day).map(archiveRow).join('')}</section>`;
 }
 
-const fullSlateHtml=`<section id="nba-schedule" class="sched-section"><div class="sectionhead"><h2>Full NBA Schedule</h2><span id="espn-slate-count">${liveSchedule.length} games on slate</span></div><div class="sched-controls"><label for="espn-date">US Slate Date (ET) <input type="date" id="espn-date" value="2026-11-04"></label><span id="espn-status" class="sched-note"><span class="statusdot"></span>Auto-updating live · Philippine Standard Time (PHT)</span></div><div id="espn-grid" class="sched-grid">${liveSchedule.map(scheduleCard).join('')}</div></section>`;
+const fullSlateHtml=`<section id="nba-schedule" class="sched-section"><div class="sectionhead"><h2>Full NBA Schedule</h2><span id="espn-slate-count">${liveSchedule.length} games on slate</span></div><div class="sched-controls"><label for="espn-date">US Slate Date (ET) <input type="date" id="espn-date" value="2026-11-04"></label><span id="espn-status" class="sched-note"><span class="statusdot"></span>Philippine Standard Time (PHT)</span></div><div id="espn-grid" class="sched-grid">${liveSchedule.map(scheduleCard).join('')}</div></section>`;
 
 const cryptoIcon=id=>{
   if(id==='usdt')return `<svg class="crypto-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#26a17b"/><path fill="#fff" d="M13.1 10.6V9.2h3.4V7H7.5v2.2h3.4v1.4c-2.8.1-4.9.6-4.9 1.3s2.1 1.2 4.9 1.3v4.4h2.2v-4.4c2.8-.1 4.9-.6 4.9-1.3s-2.1-1.2-4.9-1.3zm-1.1 1.9c-2.1 0-3.8-.3-4.3-.7.5-.4 2.1-.6 4.3-.7 2.1 0 3.8.3 4.3.7-.5.4-2.2.7-4.3.7z"/></svg>`;

@@ -82,7 +82,10 @@ export const games = [
     "history": "Detroit won the earlier meeting; Philadelphia was without Joel Embiid. That limits its predictive value.",
     "historySource": "rankings",
     "gameSource": "https://www.nba.com/game/phi-vs-det-0022600173",
-    "sourceNote": "NBA game page confirms November 4, 7:00 PM ET."
+    "sourceNote": "NBA game page confirms November 4, 7:00 PM ET.",
+    "archived": true,
+    "winner": "Philadelphia 76ers",
+    "finalScore": "112–106"
   },
   {
     "slug": "bucks-celtics-2026-11-05",
@@ -123,7 +126,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Milwaukee at Boston on November 4, 7:30 PM ET."
+    "sourceNote": "Official schedule lists Milwaukee at Boston on November 4, 7:30 PM ET.",
+    "archived": true,
+    "winner": "Boston Celtics",
+    "finalScore": "109–102"
   },
   {
     "slug": "timberwolves-rockets-2026-11-05",
@@ -164,7 +170,10 @@ export const games = [
     "history": "Minnesota won the March 25 and April 10, 2026 meetings. Rosters and circumstances can change.",
     "historySource": "game",
     "gameSource": "https://www.nba.com/game/MIN-vs-HOU-0022600181",
-    "sourceNote": "NBA game page confirms November 4, 8:30 PM ET and lists previous meetings."
+    "sourceNote": "NBA game page confirms November 4, 8:30 PM ET and lists previous meetings.",
+    "archived": true,
+    "winner": "Minnesota Timberwolves",
+    "finalScore": "117–107"
   },
   {
     "slug": "lakers-kings-2026-11-05",
@@ -205,7 +214,10 @@ export const games = [
     "history": "Los Angeles won three of the four 2025–26 meetings listed on the NBA game page.",
     "historySource": "game",
     "gameSource": "https://www.nba.com/game/lal-vs-sac-0022600185",
-    "sourceNote": "NBA game page confirms November 4, 10:00 PM ET and lists previous meetings."
+    "sourceNote": "NBA game page confirms November 4, 10:00 PM ET and lists previous meetings.",
+    "archived": true,
+    "winner": "Los Angeles Lakers",
+    "finalScore": "116–103"
   },
   {
     "slug": "wizards-hawks-2026-11-07",
@@ -246,7 +258,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Washington Wizards at Atlanta Hawks on November 6, 7:00 PM ET (November 7, 8:00 AM PHT)."
+    "sourceNote": "Official schedule lists Washington Wizards at Atlanta Hawks on November 6, 7:00 PM ET (November 7, 8:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "celtics-hornets-2026-11-07",
@@ -287,7 +302,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Boston at Charlotte on November 6, 7:00 PM ET (November 7, 8:00 AM PHT)."
+    "sourceNote": "Official schedule lists Boston at Charlotte on November 6, 7:00 PM ET (November 7, 8:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "76ers-cavaliers-2026-11-07",
@@ -328,7 +346,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Philadelphia at Cleveland on November 6, 7:30 PM ET (November 7, 8:30 AM PHT)."
+    "sourceNote": "Official schedule lists Philadelphia at Cleveland on November 6, 7:30 PM ET (November 7, 8:30 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "jazz-mavericks-2026-11-07",
@@ -369,7 +390,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Utah Jazz at Dallas Mavericks on November 6, 8:00 PM ET (November 7, 9:00 AM PHT)."
+    "sourceNote": "Official schedule lists Utah Jazz at Dallas Mavericks on November 6, 8:00 PM ET (November 7, 9:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "thunder-grizzlies-2026-11-07",
@@ -410,7 +434,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Oklahoma City at Memphis on November 6, 8:00 PM ET (November 7, 9:00 AM PHT)."
+    "sourceNote": "Official schedule lists Oklahoma City at Memphis on November 6, 8:00 PM ET (November 7, 9:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "raptors-bucks-2026-11-07",
@@ -451,7 +478,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Toronto Raptors at Milwaukee Bucks on November 6, 8:00 PM ET (November 7, 9:00 AM PHT)."
+    "sourceNote": "Official schedule lists Toronto Raptors at Milwaukee Bucks on November 6, 8:00 PM ET (November 7, 9:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "timberwolves-pelicans-2026-11-07",
@@ -492,7 +522,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Minnesota Timberwolves at New Orleans Pelicans on November 6, 8:00 PM ET (November 7, 9:00 AM PHT)."
+    "sourceNote": "Official schedule lists Minnesota Timberwolves at New Orleans Pelicans on November 6, 8:00 PM ET (November 7, 9:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "blazers-lakers-2026-11-07",
@@ -533,7 +566,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Portland at Los Angeles on November 6, 10:00 PM ET (November 7, 11:00 AM PHT)."
+    "sourceNote": "Official schedule lists Portland at Los Angeles on November 6, 10:00 PM ET (November 7, 11:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "spurs-kings-2026-11-07",
@@ -574,7 +610,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists San Antonio Spurs at Sacramento Kings on November 6, 10:00 PM ET (November 7, 11:00 AM PHT)."
+    "sourceNote": "Official schedule lists San Antonio Spurs at Sacramento Kings on November 6, 10:00 PM ET (November 7, 11:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "nuggets-pacers-2026-11-08",
@@ -615,7 +654,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Denver vs Indiana at Arena CDMX on November 7, 5:00 PM ET (November 8, 6:00 AM PHT)."
+    "sourceNote": "Official schedule lists Denver vs Indiana at Arena CDMX on November 7, 5:00 PM ET (November 8, 6:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "nets-hawks-2026-11-08",
@@ -656,7 +698,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Brooklyn Nets at Atlanta Hawks on November 7, 7:30 PM ET (November 8, 8:30 AM PHT)."
+    "sourceNote": "Official schedule lists Brooklyn Nets at Atlanta Hawks on November 7, 7:30 PM ET (November 8, 8:30 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "knicks-cavaliers-2026-11-08",
@@ -697,7 +742,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists New York at Cleveland on November 7, 8:00 PM ET (November 8, 9:00 AM PHT)."
+    "sourceNote": "Official schedule lists New York at Cleveland on November 7, 8:00 PM ET (November 8, 9:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "wizards-thunder-2026-11-08",
@@ -738,7 +786,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Washington Wizards at Oklahoma City Thunder on November 7, 8:00 PM ET (November 8, 9:00 AM PHT)."
+    "sourceNote": "Official schedule lists Washington Wizards at Oklahoma City Thunder on November 7, 8:00 PM ET (November 8, 9:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "magic-warriors-2026-11-08",
@@ -779,7 +830,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Orlando Magic at Golden State Warriors on November 7, 8:30 PM ET (November 8, 9:30 AM PHT)."
+    "sourceNote": "Official schedule lists Orlando Magic at Golden State Warriors on November 7, 8:30 PM ET (November 8, 9:30 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "rockets-suns-2026-11-08",
@@ -820,7 +874,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Houston Rockets at Phoenix Suns on November 7, 9:00 PM ET (November 8, 10:00 AM PHT)."
+    "sourceNote": "Official schedule lists Houston Rockets at Phoenix Suns on November 7, 9:00 PM ET (November 8, 10:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "spurs-blazers-2026-11-08",
@@ -861,7 +918,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists San Antonio Spurs at Portland Trail Blazers on November 7, 10:00 PM ET (November 8, 11:00 AM PHT)."
+    "sourceNote": "Official schedule lists San Antonio Spurs at Portland Trail Blazers on November 7, 10:00 PM ET (November 8, 11:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "76ers-bulls-2026-11-09",
@@ -902,7 +962,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Philadelphia at Chicago on November 8, 3:30 PM ET (November 9, 4:30 AM PHT)."
+    "sourceNote": "Official schedule lists Philadelphia at Chicago on November 8, 3:30 PM ET (November 9, 4:30 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "lakers-pistons-2026-11-09",
@@ -943,7 +1006,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Los Angeles at Detroit on November 8, 6:00 PM ET (November 9, 7:00 AM PHT)."
+    "sourceNote": "Official schedule lists Los Angeles at Detroit on November 8, 6:00 PM ET (November 9, 7:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "jazz-timberwolves-2026-11-09",
@@ -984,7 +1050,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Utah Jazz at Minnesota Timberwolves on November 8, 7:00 PM ET (November 9, 8:00 AM PHT)."
+    "sourceNote": "Official schedule lists Utah Jazz at Minnesota Timberwolves on November 8, 7:00 PM ET (November 9, 8:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "nets-mavericks-2026-11-09",
@@ -1025,7 +1094,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Brooklyn Nets at Dallas Mavericks on November 8, 7:30 PM ET (November 9, 8:30 AM PHT)."
+    "sourceNote": "Official schedule lists Brooklyn Nets at Dallas Mavericks on November 8, 7:30 PM ET (November 9, 8:30 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "celtics-bucks-2026-11-09",
@@ -1066,7 +1138,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Boston Celtics at Milwaukee Bucks on November 8, 8:00 PM ET (November 9, 9:00 AM PHT)."
+    "sourceNote": "Official schedule lists Boston Celtics at Milwaukee Bucks on November 8, 8:00 PM ET (November 9, 9:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "pelicans-clippers-2026-11-09",
@@ -1107,7 +1182,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists New Orleans Pelicans at LA Clippers on November 8, 9:00 PM ET (November 9, 10:00 AM PHT)."
+    "sourceNote": "Official schedule lists New Orleans Pelicans at LA Clippers on November 8, 9:00 PM ET (November 9, 10:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "heat-kings-2026-11-09",
@@ -1148,7 +1226,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Miami Heat at Sacramento Kings on November 8, 9:00 PM ET (November 9, 10:00 AM PHT)."
+    "sourceNote": "Official schedule lists Miami Heat at Sacramento Kings on November 8, 9:00 PM ET (November 9, 10:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "lakers-hawks-2026-11-10",
@@ -1189,7 +1270,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Los Angeles at Atlanta on November 9, 7:00 PM ET (November 10, 8:00 AM PHT)."
+    "sourceNote": "Official schedule lists Los Angeles at Atlanta on November 9, 7:00 PM ET (November 10, 8:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "cavaliers-hornets-2026-11-10",
@@ -1230,7 +1314,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Cleveland Cavaliers at Charlotte Hornets on November 9, 7:00 PM ET (November 10, 8:00 AM PHT)."
+    "sourceNote": "Official schedule lists Cleveland Cavaliers at Charlotte Hornets on November 9, 7:00 PM ET (November 10, 8:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "wizards-pistons-2026-11-10",
@@ -1271,7 +1358,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Washington at Detroit on November 9, 7:00 PM ET (November 10, 8:00 AM PHT)."
+    "sourceNote": "Official schedule lists Washington at Detroit on November 9, 7:00 PM ET (November 10, 8:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "grizzlies-raptors-2026-11-10",
@@ -1312,7 +1402,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Memphis Grizzlies at Toronto Raptors on November 9, 7:30 PM ET (November 10, 8:30 AM PHT)."
+    "sourceNote": "Official schedule lists Memphis Grizzlies at Toronto Raptors on November 9, 7:30 PM ET (November 10, 8:30 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "pacers-mavericks-2026-11-10",
@@ -1353,7 +1446,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Indiana Pacers at Dallas Mavericks on November 9, 8:00 PM ET (November 10, 9:00 AM PHT)."
+    "sourceNote": "Official schedule lists Indiana Pacers at Dallas Mavericks on November 9, 8:00 PM ET (November 10, 9:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "nuggets-rockets-2026-11-10",
@@ -1394,7 +1490,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Denver Nuggets at Houston Rockets on November 9, 8:30 PM ET (November 10, 9:30 AM PHT)."
+    "sourceNote": "Official schedule lists Denver Nuggets at Houston Rockets on November 9, 8:30 PM ET (November 10, 9:30 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "spurs-suns-2026-11-10",
@@ -1435,7 +1534,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists San Antonio Spurs at Phoenix Suns on November 9, 9:00 PM ET (November 10, 10:00 AM PHT)."
+    "sourceNote": "Official schedule lists San Antonio Spurs at Phoenix Suns on November 9, 9:00 PM ET (November 10, 10:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "pelicans-warriors-2026-11-10",
@@ -1476,7 +1578,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists New Orleans Pelicans at Golden State Warriors on November 9, 10:00 PM ET (November 10, 11:00 AM PHT)."
+    "sourceNote": "Official schedule lists New Orleans Pelicans at Golden State Warriors on November 9, 10:00 PM ET (November 10, 11:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "bucks-knicks-2026-11-11",
@@ -1517,7 +1622,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Milwaukee at New York on November 10, 7:30 PM ET (November 11, 8:30 AM PHT)."
+    "sourceNote": "Official schedule lists Milwaukee at New York on November 10, 7:30 PM ET (November 11, 8:30 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "celtics-76ers-2026-11-11",
@@ -1558,7 +1666,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Boston at Philadelphia on November 10, 8:00 PM ET (November 11, 9:00 AM PHT)."
+    "sourceNote": "Official schedule lists Boston at Philadelphia on November 10, 8:00 PM ET (November 11, 9:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "clippers-suns-2026-11-11",
@@ -1599,7 +1710,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists LA Clippers at Phoenix Suns on November 10, 9:00 PM ET (November 11, 10:00 AM PHT)."
+    "sourceNote": "Official schedule lists LA Clippers at Phoenix Suns on November 10, 9:00 PM ET (November 11, 10:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "heat-jazz-2026-11-11",
@@ -1640,7 +1754,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Miami Heat at Utah Jazz on November 10, 9:00 PM ET (November 11, 10:00 AM PHT)."
+    "sourceNote": "Official schedule lists Miami Heat at Utah Jazz on November 10, 9:00 PM ET (November 11, 10:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "magic-kings-2026-11-11",
@@ -1681,7 +1798,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Orlando Magic at Sacramento Kings on November 10, 10:00 PM ET (November 11, 11:00 AM PHT)."
+    "sourceNote": "Official schedule lists Orlando Magic at Sacramento Kings on November 10, 10:00 PM ET (November 11, 11:00 AM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   },
   {
     "slug": "thunder-blazers-2026-11-11",
@@ -1722,7 +1842,10 @@ export const games = [
     "history": "A head-to-head trend has not been independently verified for this preview and is not used in the pick.",
     "historySource": null,
     "gameSource": null,
-    "sourceNote": "Official schedule lists Oklahoma City Thunder at Portland Trail Blazers on November 10, 11:00 PM ET (November 11, 12:00 PM PHT)."
+    "sourceNote": "Official schedule lists Oklahoma City Thunder at Portland Trail Blazers on November 10, 11:00 PM ET (November 11, 12:00 PM PHT).",
+    "archived": false,
+    "winner": "",
+    "finalScore": ""
   }
 ];
 
