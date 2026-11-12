@@ -174,7 +174,8 @@ for(const day of [...new Set(archivedGames.map(g=>dayKey(g)))]){
   archiveSchedule+=`<section class="day" data-day="${day}"><h3>${date(archivedGames.find(g=>dayKey(g)===day))} <span>All times Philippine Standard Time</span></h3>${archivedGames.filter(g=>dayKey(g)===day).map(archiveRow).join('')}</section>`;
 }
 
-const fullSlateHtml=`<section id="nba-schedule" class="sched-section"><div class="sectionhead"><h2>Full NBA Schedule</h2><span id="espn-slate-count">${liveSchedule.length} games on slate</span></div><div class="sched-controls"><label for="espn-date">US Slate Date (ET) <input type="date" id="espn-date" value="2026-11-04"></label><span id="espn-status" class="sched-note"><span class="statusdot"></span>Philippine Standard Time (PHT)</span></div><div id="espn-grid" class="sched-grid">${liveSchedule.map(scheduleCard).join('')}</div></section>`;
+const todayEtDate = new Intl.DateTimeFormat('en-CA', {timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit'}).format(nowPht);
+const fullSlateHtml=`<section id="nba-schedule" class="sched-section"><div class="sectionhead"><h2>Full NBA Schedule</h2><span id="espn-slate-count">${liveSchedule.length} game${liveSchedule.length===1?'':'s'} on slate</span></div><div class="sched-controls"><label for="espn-date">US Slate Date (ET) <input type="date" id="espn-date" value="${todayEtDate}"></label><span id="espn-status" class="sched-note"><span class="statusdot"></span>Philippine Standard Time (PHT)</span></div><div id="espn-grid" class="sched-grid">${liveSchedule.length?liveSchedule.map(scheduleCard).join(''):'<p class="sched-note">Select a slate date above to view scheduled NBA matchups.</p>'}</div></section>`;
 
 const cryptoIcon=id=>{
   if(id==='usdt')return `<svg class="crypto-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#26a17b"/><path fill="#fff" d="M13.1 10.6V9.2h3.4V7H7.5v2.2h3.4v1.4c-2.8.1-4.9.6-4.9 1.3s2.1 1.2 4.9 1.3v4.4h2.2v-4.4c2.8-.1 4.9-.6 4.9-1.3s-2.1-1.2-4.9-1.3zm-1.1 1.9c-2.1 0-3.8-.3-4.3-.7.5-.4 2.1-.6 4.3-.7 2.1 0 3.8.3 4.3.7-.5.4-2.2.7-4.3.7z"/></svg>`;
@@ -707,10 +708,10 @@ await page(
       <div class="archive-stats" id="archive-stats" aria-live="polite">
         <span class="stats-label">OVERALL PREDICTION</span>
         <strong class="stats-pct" id="archive-win-pct">${archivePct}</strong>
-        <span class="stats-wl" id="archive-wl-count">${archiveWins} Wins · ${archiveLosses} ${archiveLosses===1?'Loss':'Losses'}</span>
+        <span class="stats-wl" id="archive-wl-count">${archiveWins} ${archiveWins===1?'Win':'Wins'} · ${archiveLosses} ${archiveLosses===1?'Loss':'Losses'}</span>
       </div>
     </div>
-    ${archiveSchedule}
+    ${archiveSchedule || '<p id="archive-empty">No archived prediction results yet.</p>'}
   </article>`,
   'Prediction results archive',
   {
