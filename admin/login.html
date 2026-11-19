@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en-PH">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -8,10 +9,12 @@
   <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow+Semi+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow+Semi+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="/admin/assets/admin.css">
   <script src="/admin/assets/login.js" defer></script>
 </head>
+
 <body>
   <main class="login-shell">
     <section class="login-card" aria-labelledby="signin-heading">
@@ -25,53 +28,36 @@
       <form id="login-form" method="post" action="/api/auth/login" novalidate>
         <div class="admin-field">
           <label for="email">Admin Email <span aria-hidden="true">*</span></label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            autocomplete="username"
-            spellcheck="false"
-            enterkeyhint="next"
-            required
-            data-error="email-field-error"
-          >
+          <input type="email" id="email" name="email" autocomplete="username" spellcheck="false" enterkeyhint="next"
+            required data-error="email-field-error">
           <div id="email-field-error" class="error-msg">
-            <span role="img" aria-label="Error">❌</span> Enter your admin email address (for example admin@pinoyball.com).
+            <span role="img" aria-label="Error">❌</span> Enter your admin email address (for example
+            admin@pinoyball.com).
           </div>
         </div>
 
         <div class="admin-field">
           <label for="current-password">Password <span aria-hidden="true">*</span></label>
           <div class="password-row">
-            <input
-              type="password"
-              id="current-password"
-              name="password"
-              autocomplete="current-password"
-              enterkeyhint="done"
-              required
-              data-error="password-field-error"
-            >
-            <button
-              type="button"
-              id="toggle-password"
-              class="pw-toggle"
-              aria-pressed="false"
-              aria-label="Show password"
-              aria-describedby="toggle-warning"
-            >Show</button>
+            <input type="password" id="current-password" name="password" autocomplete="current-password"
+              enterkeyhint="done" required data-error="password-field-error">
+            <button type="button" id="toggle-password" class="pw-toggle" aria-pressed="false" aria-label="Show password"
+              aria-describedby="toggle-warning">Show</button>
           </div>
           <div id="password-field-error" class="error-msg">
             <span role="img" aria-label="Error">❌</span> Enter your admin password.
           </div>
-          <span id="toggle-warning" class="visually-hidden">Warning: this will display your password on the screen.</span>
+          <span id="toggle-warning" class="visually-hidden">Warning: this will display your password on the
+            screen.</span>
         </div>
 
         <button type="submit" id="login-submit" class="button button-block">Sign In</button>
       </form>
     </section>
 
-    <p class="login-note">Private login-protected Editorial Portal · Backed by Vercel Neon Postgres. Unauthorized visitors cannot access prediction controls.</p>
+    <p class="login-note">Private login-protected Editorial Portal · Backed by Vercel Neon Postgres. Unauthorized
+      visitors cannot access prediction controls.</p>
   </main>
 </body>
+
 </html>

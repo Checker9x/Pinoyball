@@ -27,6 +27,7 @@ for(const g of games){
  }
 }
 assert(home.includes('pinoyball-logo.png'));assert(!home.includes('id="nba-schedule"'));assert(home.includes('Send a tip'));assert(home.includes('class="qr-svg"'));
+assert(home.includes('TMwaQEzJx61qKPnYJyVsCJr1v5PNXWz9LQ'));assert(home.includes('TRON (TRC-20)'));
 assert(archivePage.includes('id="archive-win-pct"'));
 const schedPage=await readFile('dist/schedule/index.html','utf8');assert(schedPage.includes('id="nba-schedule"'));
 const method=await readFile('dist/methodology/index.html','utf8');

@@ -1,3 +1,4 @@
+import QRCode from 'qrcode';
 import {siteMeta, cryptoTips} from './data.mjs';
 
 export const formatPhtDateShort = g =>
@@ -287,33 +288,29 @@ function cryptoIcon(id) {
 }
 
 function qrSvg(tip) {
-  const size = 21;
+  const qr = QRCode.create(tip.address, {errorCorrectionLevel: 'H'});
+  const size = qr.modules.size;
+  const data = qr.modules.data;
+  const margin = 2;
+  const viewSize = size + margin * 2;
+  const center = viewSize / 2;
   let pathData = '';
-  const inFinder = (r, c, r0, c0) => r >= r0 && r < r0 + 7 && c >= c0 && c < c0 + 7;
-  const finderDark = (r, c, r0, c0) => {
-    const dr = r - r0;
-    const dc = c - c0;
-    return dr === 0 || dr === 6 || dc === 0 || dc === 6 || (dr >= 2 && dr <= 4 && dc >= 2 && dc <= 4);
-  };
-  let hash = 2166136261;
-  for (let i = 0; i < tip.address.length; i++) hash = Math.imul(hash ^ tip.address.charCodeAt(i), 16777619);
+
   for (let r = 0; r < size; r++) {
-    for (let c = 0; c < size; c++) {
-      if (r >= 8 && r <= 12 && c >= 8 && c <= 12) continue;
-      let dark = false;
-      if (inFinder(r, c, 0, 0)) dark = finderDark(r, c, 0, 0);
-      else if (inFinder(r, c, 0, 14)) dark = finderDark(r, c, 0, 14);
-      else if (inFinder(r, c, 14, 0)) dark = finderDark(r, c, 14, 0);
-      else if ((r < 8 && c < 8) || (r < 8 && c >= 13) || (r >= 13 && c < 8)) dark = false;
-      else if (r === 6 || c === 6) dark = (r + c) % 2 === 0;
-      else {
-        const v = Math.imul(hash ^ (r * 31 + c * 17), 2654435761) >>> 0;
-        dark = (v % 10) < 5;
+    let c = 0;
+    while (c < size) {
+      if (data[r * size + c]) {
+        let run = 1;
+        while (c + run < size && data[r * size + c + run]) run++;
+        pathData += `M${c + margin} ${r + margin}h${run}v1h-${run}z`;
+        c += run;
+      } else {
+        c++;
       }
-      if (dark) pathData += `M${c} ${r}h1v1h-1z`;
     }
   }
-  return `<svg class="qr-svg" viewBox="0 0 21 21" width="112" height="112" role="img" aria-label="QR code for ${tip.name} wallet address"><rect width="21" height="21" fill="#fff"/><path fill="#182a3e" d="${pathData}"/><rect x="8.2" y="8.2" width="4.6" height="4.6" rx="1" fill="${tip.color}"/><text x="10.5" y="11.6" text-anchor="middle" fill="#fff" font-size="3.1" font-weight="700">${tip.glyph}</text></svg>`;
+
+  return `<svg class="qr-svg" viewBox="0 0 ${viewSize} ${viewSize}" width="124" height="124" shape-rendering="crispEdges" role="img" aria-label="Scannable QR code for ${tip.symbol} (${tip.network}) wallet ${tip.address}"><rect width="${viewSize}" height="${viewSize}" fill="#fff"/><path fill="#111827" d="${pathData}"/><circle cx="${center}" cy="${center}" r="4.1" fill="#fff" shape-rendering="geometricPrecision"/><circle cx="${center}" cy="${center}" r="3.3" fill="${tip.color}" shape-rendering="geometricPrecision"/><path fill="#fff" shape-rendering="geometricPrecision" d="M${(center + 0.45).toFixed(2)} ${(center - 0.35).toFixed(2)}v-0.75h1.55v-0.95h-4.0v0.95h1.55v0.75c-1.25 0.06-2.2 0.28-2.2 0.56s0.95 0.5 2.2 0.56v1.85h0.9v-1.85c1.25-0.06 2.2-0.28 2.2-0.56s-0.95-0.5-2.2-0.56zm-0.45 0.85c-0.95 0-1.72-0.14-1.95-0.31 0.23-0.17 1.0-0.29 1.95-0.31 0.95 0.02 1.72 0.14 1.95 0.31-0.23 0.17-1.0 0.31-1.95 0.31z"/></svg>`;
 }
 
 const HOME_FAQ_ITEMS = [

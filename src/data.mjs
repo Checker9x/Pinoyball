@@ -51,9 +51,9 @@ export const cryptoTips = [
     "id": "usdt",
     "symbol": "USDT",
     "name": "Tether",
-    "network": "USDT (TRC-20)",
+    "network": "TRON (TRC-20)",
     "color": "#26a17b",
     "glyph": "₮",
-    "address": "TNPha9PinoyBall7xK9m2V4n6P3r5T7w9Y2z4A6"
+    "address": "TMwaQEzJx61qKPnYJyVsCJr1v5PNXWz9LQ"
   }
 ];

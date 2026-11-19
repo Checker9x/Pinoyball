@@ -1,1 +1,1 @@
-{"name":"pinoy-ball","version":"0.1.0","private":true,"type":"module","scripts":{"build":"node scripts/build.mjs","dev":"node scripts/serve.mjs","admin":"node scripts/admin-server.mjs","test":"node scripts/test.mjs"},"dependencies":{"@neondatabase/serverless":"^1.2.1"}}
+{"name":"pinoy-ball","version":"0.1.0","private":true,"type":"module","scripts":{"build":"node scripts/build.mjs","dev":"node scripts/serve.mjs","admin":"node scripts/admin-server.mjs","test":"node scripts/test.mjs"},"dependencies":{"@neondatabase/serverless":"^1.2.1","qrcode":"^1.5.4"}}
