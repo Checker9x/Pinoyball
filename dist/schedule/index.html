@@ -35,7 +35,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow+Semi+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
   <link rel="stylesheet" href="/style.css">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinoyball.com/#organization","name":"Pinoy Ball","url":"https://www.pinoyball.com","logo":{"@type":"ImageObject","url":"https://www.pinoyball.com/assets/pinoyball-logo.png","width":300,"height":100},"publishingPrinciples":"https://www.pinoyball.com/methodology/"},{"@type":"WebSite","@id":"https://www.pinoyball.com/#website","url":"https://www.pinoyball.com","name":"Pinoy Ball","alternateName":"Pinoy Ball NBA Predictions","description":"Free 2026-2027 NBA predictions today, tonight and tomorrow. Expert NBA betting predictions, team vs team picks, matchup previews and live PHT schedules.","keywords":"nba predictions, 2026-2027 nba predictions, nba predictions today, nba predictions tomorrow, nba predictions tonight, nba betting predictions, nba picks and predictions, nba odds and predictions, nba match predictions, nba game predictions, free nba predictions, accurate nba predictions","inLanguage":"en-PH","publisher":{"@id":"https://www.pinoyball.com/#organization"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Overview","item":"https://www.pinoyball.com/"},{"@type":"ListItem","position":2,"name":"NBA Schedule","item":"https://www.pinoyball.com/schedule/"}]},{"@type":"CollectionPage","@id":"https://www.pinoyball.com/schedule/#webpage","url":"https://www.pinoyball.com/schedule/","name":"2026-27 NBA Schedule (PHT) & Matchup Previews | Pinoy Ball","description":"Live 2026-2027 NBA schedule today and tomorrow in Philippine Standard Time (PHT). Track ongoing NBA matchups, team records, tip-off times and game predictions.","isPartOf":{"@id":"https://www.pinoyball.com/#website"}}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinoyball.com/#organization","name":"Pinoy Ball","url":"https://www.pinoyball.com","description":"Free 2026-2027 NBA predictions today, tonight and tomorrow. Expert NBA betting predictions, team vs team picks, matchup previews and live PHT schedules.","knowsAbout":["NBA Predictions","2026-2027 NBA Matchup Analysis","Philippine Time (PHT) NBA Schedule","Basketball Analytics"],"logo":{"@type":"ImageObject","url":"https://www.pinoyball.com/assets/pinoyball-logo.png","width":300,"height":100},"address":{"@type":"PostalAddress","addressLocality":"Manila","addressRegion":"Metro Manila","addressCountry":"PH"},"contactPoint":[{"@type":"ContactPoint","contactType":"editorial","email":"editorial@pinoyball.com","url":"https://www.pinoyball.com/contact/","availableLanguage":["en-PH","en"]}],"publishingPrinciples":"https://www.pinoyball.com/methodology/"},{"@type":"WebSite","@id":"https://www.pinoyball.com/#website","url":"https://www.pinoyball.com","name":"Pinoy Ball","alternateName":"Pinoy Ball NBA Predictions","description":"Free 2026-2027 NBA predictions today, tonight and tomorrow. Expert NBA betting predictions, team vs team picks, matchup previews and live PHT schedules.","keywords":"nba predictions, 2026-2027 nba predictions, nba predictions today, nba predictions tomorrow, nba predictions tonight, nba betting predictions, nba picks and predictions, nba odds and predictions, nba match predictions, nba game predictions, free nba predictions, accurate nba predictions","inLanguage":"en-PH","publisher":{"@id":"https://www.pinoyball.com/#organization"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Overview","item":"https://www.pinoyball.com/"},{"@type":"ListItem","position":2,"name":"NBA Schedule","item":"https://www.pinoyball.com/schedule/"}]},{"@type":"CollectionPage","@id":"https://www.pinoyball.com/schedule/#webpage","url":"https://www.pinoyball.com/schedule/","name":"2026-27 NBA Schedule (PHT) & Matchup Previews | Pinoy Ball","description":"Live 2026-2027 NBA schedule today and tomorrow in Philippine Standard Time (PHT). Track ongoing NBA matchups, team records, tip-off times and game predictions.","isPartOf":{"@id":"https://www.pinoyball.com/#website"}}]}</script>
   <script src="/app.js" defer></script>
 </head>
 <body>
@@ -50,12 +50,22 @@
   </nav>
   <main id="main" class="wrap"><article class="article methodology-article">
     <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Overview</a> <span>/</span> <span aria-current="page">NBA Schedule</span></nav>
-    <section id="nba-schedule" class="sched-section"><div class="sectionhead"><h2>Full NBA Schedule</h2><span id="espn-slate-count">0 games on slate</span></div><div class="sched-controls"><label for="espn-date">US Slate Date (ET) <input type="date" id="espn-date" value="2026-11-19"></label><span id="espn-status" class="sched-note"><span class="statusdot"></span>Philippine Standard Time (PHT)</span></div><div id="espn-grid" class="sched-grid"><p class="sched-note">Select a slate date above to view scheduled NBA matchups.</p></div></section>
+    <header class="article-header">
+      <p class="eyebrow">2026–27 NBA REGULAR SEASON · MANILA TIME (UTC+8)</p>
+      <h1>2026–27 NBA Schedule in Philippine Time (PHT)</h1>
+      <p class="lead">Check daily NBA matchups, arena venues, team win–loss records, and Philippine Standard Time tip-off windows, with direct links to Pinoy Ball editorial picks.</p>
+    </header>
+    <section id="nba-schedule" class="sched-section"><div class="sectionhead"><h2>Full NBA Schedule</h2><span id="espn-slate-count">0 games on slate</span></div><div class="sched-controls"><label for="espn-date">US Slate Date (ET) <input type="date" id="espn-date" value="2026-11-19"></label><span id="espn-status" class="sched-note"><span class="statusdot"></span>Philippine Standard Time (PHT)</span></div><div id="espn-grid" class="sched-grid"><p class="sched-note">Select a slate date above to view scheduled NBA matchups converted to Philippine Standard Time (PHT).</p></div></section>
   </article></main>
   <footer class="wrap">
     <a class="footbrand" href="/">PINOY BALL</a>
     <span>Independent thinking. Basketball first.</span>
-    <a href="/methodology/">Methodology & sources</a>
+    <div class="footlinks">
+      <a href="/about/">About</a>
+      <a href="/methodology/">Methodology</a>
+      <a href="/contact/">Contact</a>
+      <a href="/privacy/">Privacy</a>
+    </div>
   </footer>
 </body>
 </html>

@@ -176,6 +176,7 @@ async function loadSelectedDateSchedule(){
 
 if(espnGrid){
   espnDate?.addEventListener('change',loadSelectedDateSchedule);
+  if(!espnGrid.querySelector('.sched-card'))loadSelectedDateSchedule();
 }
 
 const tipAddr=document.querySelector('#tip-address');

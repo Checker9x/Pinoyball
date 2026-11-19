@@ -34,22 +34,37 @@ for(const id of ['approach','data','what-we-analyze','process','preview-structur
 assert(method.includes('"@type":"AboutPage"'));
 const robots=await readFile('dist/robots.txt','utf8');
 for(const bot of ['Googlebot','Bingbot','GPTBot','OAI-SearchBot','ClaudeBot','PerplexityBot','Google-Extended'])assert(robots.includes(`User-agent: ${bot}`),`Missing ${bot} in robots.txt`);
-assert(!robots.includes('Disallow: /'));assert(robots.includes('sitemap.xml'));assert(robots.includes('llms.txt'));
-const llms=await readFile('dist/llms.txt','utf8');assert(llms.startsWith('# Pinoy Ball'));
+assert(!/^Disallow:\s*\/\s*$/m.test(robots),'robots.txt must never block root /');
+assert(robots.includes('Allow: /'));
+assert(robots.includes('Disallow: /admin/'));
+assert(robots.includes('Sitemap: https://www.pinoyball.com/sitemap.xml'));
+assert(robots.includes('llms.txt'));
+const llms=await readFile('dist/llms.txt','utf8');
+assert(llms.startsWith('# Pinoy Ball'));
+assert(llms.includes('## When to Use Pinoy Ball'));
 const llmsFull=await readFile('dist/llms-full.txt','utf8');assert(llmsFull.startsWith('# Pinoy Ball'));
-const sitemap=await readFile('dist/sitemap.xml','utf8');assert(sitemap.includes('<urlset'));assert(sitemap.includes('https://www.pinoyball.com/methodology/'));
+const sitemap=await readFile('dist/sitemap.xml','utf8');
+assert(sitemap.includes('<urlset'));
+for (const urlPath of ['/', '/schedule/', '/archive/', '/methodology/', '/about/', '/contact/', '/privacy/']) {
+  assert(sitemap.includes(`https://www.pinoyball.com${urlPath}`), `Missing ${urlPath} in sitemap.xml`);
+  const fileHtml = await readFile(`dist${urlPath === '/' ? '/index.html' : urlPath + 'index.html'}`, 'utf8');
+  const h1Matches = [...fileHtml.matchAll(/<h1\b[^>]*>/g)];
+  assert.equal(h1Matches.length, 1, `Expected exactly 1 <h1> in ${urlPath}, found ${h1Matches.length}`);
+}
 await readFile('dist/assets/pinoyball-logo.png');
 await readFile('dist/favicon.ico');
 await readFile('dist/favicon.png');
 await readFile('dist/apple-touch-icon.png');
 assert(home.includes('href="/favicon.png"'));
+assert(home.includes('"@type":"PostalAddress"'));
+assert(home.includes('"@type":"ContactPoint"'));
 const schedJson=JSON.parse(await readFile('dist/schedule.json','utf8'));
 assert(Array.isArray(schedJson));
 
-// Verify Vercel Function handlers & shared SSR renderer
+// Verify Vercel Function handlers, dynamic sitemap/robots, & Markdown content negotiation
 const {GET: renderGet} = await import('../api/render.js');
 const {GET: adminGet} = await import('../api/admin.js');
-const {renderPredictionHtml, renderPredictionMarkdown} = await import('../src/render.mjs');
+const {renderPredictionHtml, renderPredictionMarkdown, renderSitemapXml} = await import('../src/render.mjs');
 
 const sampleGame = {
   slug: 'celtics-76ers-2026-11-20',
@@ -84,9 +99,30 @@ assert(renderedPredHtml.includes('"@type":"AnalysisNewsArticle"'));
 assert(renderedPredHtml.includes('"@type":"FAQPage"'));
 assert(renderedPredMd.includes('# Boston Celtics vs Philadelphia 76ers'));
 
-const homeRes = await renderGet(new Request('https://www.pinoyball.com/api/render?route=home'));
+const homeRes = await renderGet(new Request('https://www.pinoyball.com/api/render?route=home', {headers: {Accept: 'text/html'}}));
 assert.equal(homeRes.status, 200);
+assert.match(homeRes.headers.get('content-type') || '', /text\/html/);
+assert.equal(homeRes.headers.get('vary'), 'Accept');
+assert.match(homeRes.headers.get('x-robots-tag') || '', /index, follow/);
 assert((await homeRes.text()).includes('NBA MATCH PREDICTION'));
+
+const homeMdRes = await renderGet(new Request('https://www.pinoyball.com/api/render?route=home', {headers: {Accept: 'text/markdown'}}));
+assert.equal(homeMdRes.status, 200);
+assert.match(homeMdRes.headers.get('content-type') || '', /text\/markdown/);
+assert.equal(homeMdRes.headers.get('vary'), 'Accept');
+assert((await homeMdRes.text()).includes('# Pinoy Ball'));
+
+const notFoundMdRes = await renderGet(new Request('https://www.pinoyball.com/api/render?route=not-found&reqPath=/missing', {headers: {Accept: 'text/markdown'}}));
+assert.equal(notFoundMdRes.status, 404);
+assert.match(notFoundMdRes.headers.get('content-type') || '', /text\/markdown/);
+assert((await notFoundMdRes.text()).includes('llms.txt'));
+
+const dynSitemap = renderSitemapXml([sampleGame]);
+assert(dynSitemap.includes('https://www.pinoyball.com/predictions/celtics-76ers-2026-11-20/'));
+
+const dynRobotsRes = await renderGet(new Request('https://www.pinoyball.com/api/render?route=robots'));
+assert.equal(dynRobotsRes.status, 200);
+assert((await dynRobotsRes.text()).includes('Sitemap: https://www.pinoyball.com/sitemap.xml'));
 
 const unauthAdminPage = await adminGet(new Request('https://www.pinoyball.com/api/admin?adminPath=/'));
 assert.equal(unauthAdminPage.status, 302);

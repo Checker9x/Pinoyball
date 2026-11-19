@@ -9,6 +9,13 @@
   },
   "headers": [
     {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    },
+    {
       "source": "/(.*)\\.md",
       "headers": [
         { "key": "Content-Type", "value": "text/markdown; charset=utf-8" }
@@ -27,14 +34,32 @@
       ]
     }
   ],
+  "redirects": [
+    {
+      "source": "/robot.txt",
+      "destination": "/robots.txt",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/", "destination": "/api/render?route=home" },
     { "source": "/archive", "destination": "/api/render?route=archive" },
     { "source": "/archive/", "destination": "/api/render?route=archive" },
+    { "source": "/schedule", "destination": "/api/render?route=schedule" },
+    { "source": "/schedule/", "destination": "/api/render?route=schedule" },
+    { "source": "/methodology", "destination": "/api/render?route=methodology" },
+    { "source": "/methodology/", "destination": "/api/render?route=methodology" },
+    { "source": "/about", "destination": "/api/render?route=about" },
+    { "source": "/about/", "destination": "/api/render?route=about" },
+    { "source": "/contact", "destination": "/api/render?route=contact" },
+    { "source": "/contact/", "destination": "/api/render?route=contact" },
+    { "source": "/privacy", "destination": "/api/render?route=privacy" },
+    { "source": "/privacy/", "destination": "/api/render?route=privacy" },
     { "source": "/predictions/:slug/index.md", "destination": "/api/render?route=prediction-md&slug=:slug" },
     { "source": "/predictions/:slug", "destination": "/api/render?route=prediction&slug=:slug" },
     { "source": "/predictions/:slug/", "destination": "/api/render?route=prediction&slug=:slug" },
     { "source": "/sitemap.xml", "destination": "/api/render?route=sitemap" },
+    { "source": "/robots.txt", "destination": "/api/render?route=robots" },
     { "source": "/llms.txt", "destination": "/api/render?route=llms" },
     { "source": "/llms-full.txt", "destination": "/api/render?route=llms-full" },
     { "source": "/games.json", "destination": "/api/render?route=games-json" },
@@ -42,6 +67,7 @@
     { "source": "/admin/login", "destination": "/api/admin?adminPath=/login" },
     { "source": "/admin/api/:subpath*", "destination": "/api/admin?adminPath=/api/:subpath*" },
     { "source": "/admin", "destination": "/api/admin?adminPath=/" },
-    { "source": "/admin/", "destination": "/api/admin?adminPath=/" }
+    { "source": "/admin/", "destination": "/api/admin?adminPath=/" },
+    { "source": "/((?!api/).*)", "destination": "/api/render?route=not-found&reqPath=/$1" }
   ]
 }

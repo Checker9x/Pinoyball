@@ -8,6 +8,9 @@ import {
   renderArchiveHtml,
   renderScheduleHtml,
   renderMethodologyHtml,
+  renderAboutHtml,
+  renderContactHtml,
+  renderPrivacyHtml,
   renderNotFoundHtml,
   renderSitemapXml,
   renderLlmsTxt,
@@ -35,30 +38,31 @@ if (hasDatabaseUrl()) {
 const nowPht = new Date();
 const isVercelBuild = process.env.VERCEL === '1';
 
-// Static pages & assets always emitted to dist/
-await mkdir('dist/methodology', {recursive: true});
-await writeFile('dist/methodology/index.html', renderMethodologyHtml(), 'utf8');
-
-await mkdir('dist/schedule', {recursive: true});
-await writeFile('dist/schedule/index.html', renderScheduleHtml(nbaSchedule, nowPht), 'utf8');
-
+// Core static assets always emitted to dist/
 await writeFile('dist/schedule.json', JSON.stringify(nbaSchedule, null, 2), 'utf8');
-await writeFile('dist/robots.txt', renderRobotsTxt(), 'utf8');
-await writeFile('dist/404.html', renderNotFoundHtml(), 'utf8');
-
 await mkdir('dist/assets', {recursive: true});
 await copyFile('public/assets/pinoyball-logo.png', 'dist/assets/pinoyball-logo.png');
 for (const f of ['style.css', 'app.js', 'favicon.ico', 'favicon.png', 'apple-touch-icon.png']) {
   await copyFile(`public/${f}`, `dist/${f}`);
 }
 
-// Locally (and in CI tests), write full static HTML/MD/XML/TXT output to dist/.
-// On Vercel (VERCEL=1), omit DB-backed files from dist/ so vercel.json rewrites
-// serve live Neon Postgres responses via /api/render with zero redeploy delay.
+// Locally (and in automated tests), emit full static pages, sitemap.xml, robots.txt, and llms*.txt.
+// On Vercel (VERCEL=1), route HTML/Markdown/XML/TXT requests dynamically through /api/render
+// so sitemap.xml, robots.txt, llms.txt, predictions, and Accept: text/markdown negotiation stay live.
 if (!isVercelBuild) {
   await writeFile('dist/index.html', renderHomeHtml(games, nowPht), 'utf8');
-  await mkdir('dist/archive', {recursive: true});
-  await writeFile('dist/archive/index.html', renderArchiveHtml(games), 'utf8');
+
+  for (const [slugDir, html] of [
+    ['archive', renderArchiveHtml(games)],
+    ['schedule', renderScheduleHtml(nbaSchedule, nowPht)],
+    ['methodology', renderMethodologyHtml()],
+    ['about', renderAboutHtml()],
+    ['contact', renderContactHtml()],
+    ['privacy', renderPrivacyHtml()]
+  ]) {
+    await mkdir(`dist/${slugDir}`, {recursive: true});
+    await writeFile(`dist/${slugDir}/index.html`, html, 'utf8');
+  }
 
   for (const g of games) {
     const dir = `dist/predictions/${g.slug}`;
@@ -67,10 +71,12 @@ if (!isVercelBuild) {
     await writeFile(`${dir}/index.md`, renderPredictionMarkdown(g), 'utf8');
   }
 
+  await writeFile('dist/404.html', renderNotFoundHtml(), 'utf8');
   await writeFile('dist/games.json', JSON.stringify(games, null, 2), 'utf8');
   await writeFile('dist/llms.txt', renderLlmsTxt(games), 'utf8');
   await writeFile('dist/llms-full.txt', renderLlmsFullTxt(games), 'utf8');
   await writeFile('dist/sitemap.xml', renderSitemapXml(games, nowPht), 'utf8');
+  await writeFile('dist/robots.txt', renderRobotsTxt(), 'utf8');
 }
 
-console.log(`Built site in dist/ (${isVercelBuild ? 'Vercel SSR + static assets mode' : 'full static build'}).`);
+console.log(`Built site in dist/ (${isVercelBuild ? 'Vercel dynamic SSR + static CDN assets mode' : 'full static build'}).`);
