@@ -1,0 +1,16 @@
+# Pinoy Ball
+
+> Free 2026-2027 NBA predictions today, tonight and tomorrow. Expert NBA betting predictions, team vs team picks, matchup previews and live PHT schedules. All game dates and tip-off times are reported in Philippine Standard Time (PHT / UTC+8).
+
+## Core Sections
+- [Upcoming NBA Predictions](https://www.pinoyball.com/): Active team-vs-team NBA winner picks, confidence tiers, and matchup previews in PHT.
+- [Prediction Results Archive](https://www.pinoyball.com/archive/): Transparent record of completed NBA predictions, verified winners, final scores, and overall win rate (0% — 0W-0L).
+- [NBA Schedule (PHT)](https://www.pinoyball.com/schedule/): NBA regular-season schedule converted to Philippine Standard Time.
+- [Prediction Methodology](https://www.pinoyball.com/methodology/): Six-pillar editorial framework, confidence tiers, injury rules, and grading accountability.
+- [Full LLM Corpus](https://www.pinoyball.com/llms-full.txt): Complete structured text of all current and archived matchup predictions.
+
+## Upcoming NBA Matchup Predictions
+- No upcoming matchups currently posted. Check https://www.pinoyball.com/ for the next slate.
+
+## Verified Prediction Results Archive
+- No completed predictions archived yet.

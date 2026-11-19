@@ -1,5 +1,47 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build",
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "functions": {
+    "api/admin.js": {
+      "includeFiles": "admin/**"
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)\\.md",
+      "headers": [
+        { "key": "Content-Type", "value": "text/markdown; charset=utf-8" }
+      ]
+    },
+    {
+      "source": "/llms(.*)\\.txt",
+      "headers": [
+        { "key": "Content-Type", "value": "text/plain; charset=utf-8" }
+      ]
+    },
+    {
+      "source": "/admin(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }
+      ]
+    }
+  ],
+  "rewrites": [
+    { "source": "/", "destination": "/api/render?route=home" },
+    { "source": "/archive", "destination": "/api/render?route=archive" },
+    { "source": "/archive/", "destination": "/api/render?route=archive" },
+    { "source": "/predictions/:slug/index.md", "destination": "/api/render?route=prediction-md&slug=:slug" },
+    { "source": "/predictions/:slug", "destination": "/api/render?route=prediction&slug=:slug" },
+    { "source": "/predictions/:slug/", "destination": "/api/render?route=prediction&slug=:slug" },
+    { "source": "/sitemap.xml", "destination": "/api/render?route=sitemap" },
+    { "source": "/llms.txt", "destination": "/api/render?route=llms" },
+    { "source": "/llms-full.txt", "destination": "/api/render?route=llms-full" },
+    { "source": "/games.json", "destination": "/api/render?route=games-json" },
+    { "source": "/admin/assets/:file", "destination": "/api/admin?adminPath=/assets/:file" },
+    { "source": "/admin/login", "destination": "/api/admin?adminPath=/login" },
+    { "source": "/admin/api/:subpath*", "destination": "/api/admin?adminPath=/api/:subpath*" },
+    { "source": "/admin", "destination": "/api/admin?adminPath=/" },
+    { "source": "/admin/", "destination": "/api/admin?adminPath=/" }
+  ]
 }
-

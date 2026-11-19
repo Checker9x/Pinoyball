@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en-PH">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Editorial Dashboard · Pinoy Ball Admin</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow+Semi+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="/admin/assets/admin.css">
+  <script src="/admin/assets/admin.js" defer></script>
+</head>
+<body>
+  <header class="dash-header">
+    <div class="dash-header-inner">
+      <div class="dash-brand">
+        <strong>Pinoy Ball</strong>
+        <span class="dash-tag">Logged-In Prediction Dashboard</span>
+      </div>
+      <div class="dash-userbar">
+        <span id="admin-db-badge" class="dash-db-pill">● Checking Database…</span>
+        <a id="public-site-link" class="dash-ext-link" href="/" target="_blank" rel="noopener">Preview Public Site ↗</a>
+        <span id="admin-user-email" class="dash-user-pill">Signed in</span>
+        <form id="logout-form" method="post" action="/admin/api/auth/logout">
+          <button type="submit" class="button btn-outline-light">Sign Out</button>
+        </form>
+      </div>
+    </div>
+  </header>
+
+  <main class="dash-main">
+    <section class="kpi-grid" aria-label="Prediction overview metrics">
+      <div class="kpi-card">
+        <span class="kpi-label">Upcoming Matchups</span>
+        <strong id="stat-upcoming" class="kpi-value">0</strong>
+        <span class="kpi-sub">Live on Homepage</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-label">Archived Results</span>
+        <strong id="stat-archived" class="kpi-value">0</strong>
+        <span class="kpi-sub">In Results Archive</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-label">Overall Prediction Win %</span>
+        <strong id="stat-win-pct" class="kpi-value">0%</strong>
+        <span id="stat-wl-sub" class="kpi-sub">0 Wins · 0 Losses</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-label">Quick Actions</span>
+        <div class="admin-head-btns" style="margin-top:8px">
+          <button type="button" class="button button-sm" id="btn-jump-new">+ New Prediction</button>
+          <button type="button" class="button button-sm btn-secondary" id="btn-download-data">Export data.mjs</button>
+        </div>
+      </div>
+    </section>
+
+    <div id="admin-status" class="admin-alert" role="status" aria-live="polite" hidden></div>
+
+    <section class="panel-inner" style="margin-bottom:24px" aria-labelledby="admin-form-heading">
+      <div class="admin-card-head">
+        <h2 id="admin-form-heading">Create New Matchup Prediction</h2>
+        <div class="admin-head-btns">
+          <button type="button" class="button button-sm btn-secondary" id="admin-reset">Clear / New Form</button>
+        </div>
+      </div>
+
+      <form id="admin-form" method="post" action="/api/games" aria-labelledby="admin-form-heading" novalidate>
+        <fieldset class="admin-fieldset">
+          <legend>1. Pick Date & Select Available Matchup</legend>
+          <div class="admin-grid-2">
+            <div class="admin-field">
+              <label for="f-pht-date">Prediction Date (PHT) <span aria-hidden="true">*</span></label>
+              <span id="pht-date-hint" class="field-hint">Pick the game date (Philippine Time) to load available Team vs Team games</span>
+              <input type="date" id="f-pht-date" name="phtDate" required aria-describedby="pht-date-hint" data-error="pht-date-error">
+              <div id="pht-date-error" class="error-msg"><span role="img" aria-label="Error">❌</span> Pick a date for this prediction.</div>
+            </div>
+            <div class="admin-field">
+              <label for="f-slug">Page URL Slug <span aria-hidden="true">*</span></label>
+              <span id="slug-hint" class="field-hint">Format: away-home-YYYY-MM-DD</span>
+              <input type="text" id="f-slug" name="slug" required pattern="[a-z0-9\-]+" autocorrect="off" autocapitalize="none" spellcheck="false" aria-describedby="slug-hint" data-error="slug-error">
+              <div id="slug-error" class="error-msg"><span role="img" aria-label="Error">❌</span> Enter a lowercase URL slug using letters, numbers, and hyphens only.</div>
+            </div>
+          </div>
+
+          <div class="date-games-panel" aria-live="polite">
+            <div class="date-games-head">
+              <strong id="date-games-title">Available NBA Games on Selected Date</strong>
+              <span id="date-games-count" class="field-hint" style="margin:0">Loading schedule…</span>
+            </div>
+            <div id="date-games-grid" class="date-games-grid"></div>
+          </div>
+
+          <div class="admin-grid-2" style="margin-top:16px">
+            <div class="admin-field">
+              <label for="f-away">Away Team <span aria-hidden="true">*</span></label>
+              <div class="team-select-row">
+                <img id="away-logo-preview" class="teamlogo" src="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/bos.png" alt="" width="28" height="28">
+                <select id="f-away" name="away" required></select>
+              </div>
+            </div>
+            <div class="admin-field">
+              <label for="f-away-record">Away Record (Optional)</label>
+              <span id="away-rec-hint" class="field-hint">Example: 6–2 (leave blank if not needed)</span>
+              <input type="text" id="f-away-record" name="awayRecord" aria-describedby="away-rec-hint">
+            </div>
+            <div class="admin-field">
+              <label for="f-home">Home Team <span aria-hidden="true">*</span></label>
+              <div class="team-select-row">
+                <img id="home-logo-preview" class="teamlogo" src="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/phi.png" alt="" width="28" height="28">
+                <select id="f-home" name="home" required></select>
+              </div>
+            </div>
+            <div class="admin-field">
+              <label for="f-home-record">Home Record (Optional)</label>
+              <span id="home-rec-hint" class="field-hint">Example: 8–1 (leave blank if not needed)</span>
+              <input type="text" id="f-home-record" name="homeRecord" aria-describedby="home-rec-hint">
+            </div>
+            <div class="admin-field">
+              <label for="f-venue">Arena / Venue (Optional)</label>
+              <input type="text" id="f-venue" name="venue">
+            </div>
+            <div class="admin-field">
+              <label for="f-assessment">Assessment Label (Optional)</label>
+              <input type="text" id="f-assessment" name="assessmentType">
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="admin-fieldset">
+          <legend>2. Our Prediction & Confidence</legend>
+          <div class="admin-field">
+            <span class="field-label-text">Confidence Tier <span aria-hidden="true">*</span></span>
+            <div class="radio-row">
+              <div class="radio-item"><input type="radio" id="lvl-slight" name="level" value="Slight lean" checked><label for="lvl-slight">Slight lean</label></div>
+              <div class="radio-item"><input type="radio" id="lvl-lean" name="level" value="Lean"><label for="lvl-lean">Lean</label></div>
+              <div class="radio-item"><input type="radio" id="lvl-stronger" name="level" value="Stronger lean"><label for="lvl-stronger">Stronger lean</label></div>
+              <div class="radio-item"><input type="radio" id="lvl-nopick" name="level" value="No pick"><label for="lvl-nopick">No pick</label></div>
+            </div>
+          </div>
+          <div class="admin-field">
+            <label for="f-pick">Predicted Winner <span aria-hidden="true">*</span></label>
+            <select id="f-pick" name="pick" required></select>
+          </div>
+        </fieldset>
+
+        <fieldset class="admin-fieldset">
+          <legend>3. Your Prediction Content (SEO &amp; LLM Structured)</legend>
+          <div class="serp-preview-box" aria-live="polite">
+            <span class="serp-preview-label">Live Google Search &amp; AI Snippet Preview</span>
+            <div class="serp-url" id="serp-preview-url">https://www.pinoyball.com/predictions/...</div>
+            <div class="serp-title" id="serp-preview-title">Away vs Home NBA Prediction &amp; Pick | Pinoy Ball</div>
+            <div class="serp-desc" id="serp-preview-desc">Write your Short Summary below to preview how Google Search and AI engines will summarize this page.</div>
+          </div>
+
+          <div class="admin-field">
+            <label for="f-summary">Direct Answer / Short Summary (Homepage Card, Meta Fallback &amp; AI Speakable Lead) <span aria-hidden="true">*</span></label>
+            <span id="summary-hint" class="field-hint">1–2 clear sentences stating who has the edge and why (feeds Google snippets &amp; LLM summaries)</span>
+            <textarea id="f-summary" name="summary" rows="3" required aria-describedby="summary-hint" data-error="summary-error"></textarea>
+            <div id="summary-error" class="error-msg"><span role="img" aria-label="Error">❌</span> Write your short summary for this prediction.</div>
+          </div>
+          <div class="admin-field">
+            <label for="f-analysis">Full Matchup Content / Analysis</label>
+            <span id="analysis-hint" class="field-hint">Supports structured formatting: start a line with <code>## Heading</code> for H2 subheadings, <code>### Subheading</code> for H3, or <code>- Point</code> for bullets</span>
+            <textarea id="f-analysis" name="analysis" rows="7" aria-describedby="analysis-hint"></textarea>
+          </div>
+          <div class="admin-field">
+            <label for="f-reasons">Key Factors / Bullet Takeaways (Optional — one bullet per line)</label>
+            <textarea id="f-reasons" name="reasons" rows="3"></textarea>
+          </div>
+
+          <details class="optional-details">
+            <summary>Optional Breakdown Sections, Custom FAQ &amp; Custom SEO Tags</summary>
+            <div class="optional-details-body">
+              <div class="admin-grid-2">
+                <div class="admin-field">
+                  <label for="f-key-matchup">Key Matchup</label>
+                  <textarea id="f-key-matchup" name="keyMatchup" rows="2"></textarea>
+                </div>
+                <div class="admin-field">
+                  <label for="f-history">Head-to-Head Context</label>
+                  <textarea id="f-history" name="history" rows="2"></textarea>
+                </div>
+                <div class="admin-field">
+                  <label for="f-counterargument">Opposing Case / Counterargument</label>
+                  <textarea id="f-counterargument" name="counterargument" rows="2"></textarea>
+                </div>
+                <div class="admin-field">
+                  <label for="f-upset">Upset Scenario</label>
+                  <textarea id="f-upset" name="upsetScenario" rows="2"></textarea>
+                </div>
+                <div class="admin-field">
+                  <label for="f-risk">Risk Note</label>
+                  <textarea id="f-risk" name="risk" rows="2"></textarea>
+                </div>
+                <div class="admin-field">
+                  <label for="f-availability">Player Availability / Injury Note</label>
+                  <textarea id="f-availability" name="availability" rows="2"></textarea>
+                </div>
+                <div class="admin-field">
+                  <label for="f-faq-q">Custom FAQ Question (Optional — adds to FAQPage Schema)</label>
+                  <input type="text" id="f-faq-q" name="customFaqQuestion">
+                </div>
+                <div class="admin-field">
+                  <label for="f-faq-a">Custom FAQ Answer (Optional)</label>
+                  <textarea id="f-faq-a" name="customFaqAnswer" rows="2"></textarea>
+                </div>
+              </div>
+              <div class="admin-field" style="margin-top:16px">
+                <label for="f-seo-title">Custom SEO Page Title (Optional — auto-titled from teams &amp; date if left blank)</label>
+                <span id="seo-title-hint" class="field-hint">Ideal ~37–47 chars (+13 for " | Pinoy Ball"). <strong id="seo-title-count" class="char-count">0 chars</strong></span>
+                <input type="text" id="f-seo-title" name="seoTitle" aria-describedby="seo-title-hint">
+              </div>
+              <div class="admin-field">
+                <label for="f-seo-desc">Custom SEO Meta Description (Optional — uses your Short Summary if left blank)</label>
+                <span id="seo-desc-hint" class="field-hint">Ideal ~145–160 chars. <strong id="seo-desc-count" class="char-count">0 chars</strong></span>
+                <textarea id="f-seo-desc" name="seoDescription" rows="2" aria-describedby="seo-desc-hint"></textarea>
+              </div>
+              <div class="admin-field">
+                <label for="f-seo-keywords">Custom SEO Keywords (Optional — auto-targeted from teams &amp; date if left blank)</label>
+                <input type="text" id="f-seo-keywords" name="seoKeywords">
+              </div>
+            </div>
+          </details>
+        </fieldset>
+
+        <fieldset id="archive-fieldset" class="admin-fieldset archive-box">
+          <legend>4. Archive Status & Final Result (Manual Grading)</legend>
+          <div class="checkbox-row">
+            <input type="checkbox" id="f-archived" name="archived">
+            <label for="f-archived"><strong>Move to Prediction Results Archive</strong> (check once the game is finished)</label>
+          </div>
+          <div class="admin-grid-2">
+            <div class="admin-field">
+              <label for="f-winner">Actual Game Winner</label>
+              <select id="f-winner" name="winner"></select>
+            </div>
+            <div class="admin-field">
+              <label for="f-final-score">Final Score (Optional)</label>
+              <span id="score-hint" class="field-hint">Example: 114–108</span>
+              <input type="text" id="f-final-score" name="finalScore" aria-describedby="score-hint">
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="admin-submit-bar">
+          <button type="submit" class="button" id="admin-submit">Save Prediction &amp; Publish</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel-inner" aria-labelledby="saved-list-heading">
+      <div class="admin-card-head">
+        <h2 id="saved-list-heading">Saved Predictions & Archive Grading</h2>
+        <span>Filter by date, click Edit to load into the form above, or Move to Archive</span>
+      </div>
+      <search class="table-filter-bar">
+        <div class="admin-field" style="margin-block-end:0">
+          <label for="filter-date">Filter by Prediction Date</label>
+          <div class="filter-date-row">
+            <input type="date" id="filter-date" name="filter_date">
+            <button type="button" class="button button-sm btn-secondary" id="btn-clear-date-filter">Show All Dates</button>
+          </div>
+        </div>
+      </search>
+      <div tabindex="0" role="region" aria-labelledby="admin-table-caption" class="table-wrapper">
+        <table class="admin-table">
+          <caption id="admin-table-caption" class="visually-hidden">All saved NBA matchup predictions and archive results</caption>
+          <thead>
+            <tr>
+              <th scope="col">Matchup</th>
+              <th scope="col">Date (PHT)</th>
+              <th scope="col">Our Pick</th>
+              <th scope="col">Status / Winner</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-games-tbody">
+            <tr><td colspan="5" class="empty-cell">Loading predictions…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <dialog id="delete-dialog" closedby="any" aria-labelledby="delete-dialog-title">
+      <h2 id="delete-dialog-title">Delete this prediction?</h2>
+      <p>This will permanently remove <strong id="delete-dialog-matchup"></strong> from your database and public site.</p>
+      <form method="dialog" class="dialog-actions">
+        <button value="cancel" class="button btn-secondary" autofocus>Cancel</button>
+        <button value="delete" class="button btn-danger">Delete Prediction</button>
+      </form>
+    </dialog>
+  </main>
+</body>
+</html>

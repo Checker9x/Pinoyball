@@ -1,0 +1,4 @@
+# Pinoy Ball — Full Structured NBA Predictions Corpus
+URL: https://www.pinoyball.com/
+Timezone: Asia/Manila (PHT, UTC+8)
+Overall Verified Record: 0% (0 Wins, 0 Losses)

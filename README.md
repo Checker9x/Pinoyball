@@ -2,9 +2,10 @@
 
 **Pinoy Ball** is an independent NBA match prediction and editorial analysis website built specifically for Philippine basketball fans (`en-PH`). Every game schedule, tip-off time, and archive record is presented in **Philippine Standard Time (PHT / `Asia/Manila`, UTC+8)**.
 
-- **Live Production URL (Vercel):** https://pinoyball-prediction.vercel.app/
+- **Live Production URL:** https://www.pinoyball.com/
+- **Private Logged-In Admin Portal:** https://www.pinoyball.com/admin/login (and local `http://127.0.0.1:4174/login`)
 - **GitHub Repository:** https://github.com/Checker9x/Pinoyball
-- **Tech Stack:** Zero-dependency Node.js (`>= 18`) static site generator (ES Modules) + Vanilla HTML, CSS, and JavaScript.
+- **Tech Stack:** Node.js (`>= 20`) + **Neon Serverless Postgres** (`@neondatabase/serverless`) + Vercel Functions (Fluid Compute SSR + private login-protected Admin API) + full SEO & LLM structured outputs (`llms.txt`, `llms-full.txt`, `.md` mirrors, JSON-LD).
 
 ---
 
@@ -52,6 +53,8 @@ Pinoyball Sports Prediction/
 | `/schedule/` | **Full NBA Schedule:** Displays NBA schedule cards in PHT with links to editorial picks and a manual US Slate Date (`ET`) selector. |
 | `/archive/` | **Prediction Results Archive:** Displays all games with `"archived": true` grouped by PHT date (`Team vs Team`, `Our prediction`, `Result winner`), right-side `Winner` badge, and the `OVERALL PREDICTION` Win % scorecard (`No pick` games are excluded from Win/Loss totals). |
 | `/methodology/` | **Our Methodology:** Documents our 6 analytical pillars, confidence tiers (`Slight lean`, `Lean`, `Stronger lean`, `No pick`), injury rules, and grading transparency. |
+
+> **Separate Private Admin Dashboard (`npm run admin`):** Runs locally on its own isolated port (`http://127.0.0.1:4174/login`), gated by server-side session login (`ADMIN_EMAIL` and `ADMIN_PASSWORD` in `.env`, which is gitignored). Zero admin HTML/JS/CSS is included in `dist/`, so public visitors on Vercel cannot access any admin page.
 
 ---
 
