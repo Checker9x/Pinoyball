@@ -36,7 +36,11 @@ const robots=await readFile('dist/robots.txt','utf8');
 for(const bot of ['Googlebot','Bingbot','GPTBot','OAI-SearchBot','ClaudeBot','PerplexityBot','Google-Extended'])assert(robots.includes(`User-agent: ${bot}`),`Missing ${bot} in robots.txt`);
 assert(!/^Disallow:\s*\/\s*$/m.test(robots),'robots.txt must never block root /');
 assert(robots.includes('Allow: /'));
+assert(robots.includes('Disallow: /admin\n'));
 assert(robots.includes('Disallow: /admin/'));
+assert(robots.includes('Disallow: /login\n'));
+assert(robots.includes('Disallow: /login/'));
+assert(robots.includes('Disallow: /api/admin'));
 assert(robots.includes('Sitemap: https://www.pinoyball.com/sitemap.xml'));
 assert(robots.includes('llms.txt'));
 const llms=await readFile('dist/llms.txt','utf8');
@@ -127,9 +131,21 @@ assert((await dynRobotsRes.text()).includes('Sitemap: https://www.pinoyball.com/
 const unauthAdminPage = await adminGet(new Request('https://www.pinoyball.com/api/admin?adminPath=/'));
 assert.equal(unauthAdminPage.status, 302);
 assert.equal(unauthAdminPage.headers.get('location'), '/admin/login');
-assert.equal(unauthAdminPage.headers.get('x-robots-tag'), 'noindex, nofollow, noarchive');
+assert.equal(unauthAdminPage.headers.get('x-robots-tag'), 'noindex, nofollow, noarchive, nosnippet, noimageindex');
+
+const loginPageRes = await adminGet(new Request('https://www.pinoyball.com/api/admin?adminPath=/login'));
+assert.equal(loginPageRes.status, 200);
+assert.equal(loginPageRes.headers.get('x-robots-tag'), 'noindex, nofollow, noarchive, nosnippet, noimageindex');
+const loginHtml = await loginPageRes.text();
+assert(loginHtml.includes('<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">'));
+assert(loginHtml.includes('<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">'));
+
+assert(!sitemap.includes('/admin') && !sitemap.includes('/login'), 'sitemap.xml must never list /admin or /login');
+assert(!llms.includes('/admin') && !llms.includes('/login'), 'llms.txt must never list /admin or /login');
+assert(!llmsFull.includes('/admin') && !llmsFull.includes('/login'), 'llms-full.txt must never list /admin or /login');
 
 const unauthAdminApi = await adminGet(new Request('https://www.pinoyball.com/api/admin?adminPath=/api/games'));
 assert.equal(unauthAdminApi.status, 401);
+assert.equal(unauthAdminApi.headers.get('x-robots-tag'), 'noindex, nofollow, noarchive, nosnippet, noimageindex');
 
 console.log('Passed: SEO & AI crawler rules, llms.txt + Markdown mirrors, JSON-LD, Vercel SSR + Admin Functions, and sitemap.');

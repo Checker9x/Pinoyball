@@ -1336,7 +1336,16 @@ export function renderRobotsTxt() {
     'Applebot-Extended'
   ];
   return [
-    ...bots.flatMap(bot => [`User-agent: ${bot}`, `Allow: /`, `Disallow: /admin/`, ``]),
+    ...bots.flatMap(bot => [
+      `User-agent: ${bot}`,
+      `Allow: /`,
+      `Disallow: /admin`,
+      `Disallow: /admin/`,
+      `Disallow: /login`,
+      `Disallow: /login/`,
+      `Disallow: /api/admin`,
+      ``
+    ]),
     `Sitemap: ${siteMeta.url}/sitemap.xml`,
     `# LLM Structured Index: ${siteMeta.url}/llms.txt`,
     `# LLM Full Corpus: ${siteMeta.url}/llms-full.txt`,

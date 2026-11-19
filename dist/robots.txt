@@ -1,42 +1,82 @@
 User-agent: *
 Allow: /
+Disallow: /admin
 Disallow: /admin/
+Disallow: /login
+Disallow: /login/
+Disallow: /api/admin
 
 User-agent: Googlebot
 Allow: /
+Disallow: /admin
 Disallow: /admin/
+Disallow: /login
+Disallow: /login/
+Disallow: /api/admin
 
 User-agent: Bingbot
 Allow: /
+Disallow: /admin
 Disallow: /admin/
+Disallow: /login
+Disallow: /login/
+Disallow: /api/admin
 
 User-agent: GPTBot
 Allow: /
+Disallow: /admin
 Disallow: /admin/
+Disallow: /login
+Disallow: /login/
+Disallow: /api/admin
 
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /admin
 Disallow: /admin/
+Disallow: /login
+Disallow: /login/
+Disallow: /api/admin
 
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /admin
 Disallow: /admin/
+Disallow: /login
+Disallow: /login/
+Disallow: /api/admin
 
 User-agent: ClaudeBot
 Allow: /
+Disallow: /admin
 Disallow: /admin/
+Disallow: /login
+Disallow: /login/
+Disallow: /api/admin
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /admin
 Disallow: /admin/
+Disallow: /login
+Disallow: /login/
+Disallow: /api/admin
 
 User-agent: Google-Extended
 Allow: /
+Disallow: /admin
 Disallow: /admin/
+Disallow: /login
+Disallow: /login/
+Disallow: /api/admin
 
 User-agent: Applebot-Extended
 Allow: /
+Disallow: /admin
 Disallow: /admin/
+Disallow: /login
+Disallow: /login/
+Disallow: /api/admin
 
 Sitemap: https://www.pinoyball.com/sitemap.xml
 # LLM Structured Index: https://www.pinoyball.com/llms.txt

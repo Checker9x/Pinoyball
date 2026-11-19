@@ -5,8 +5,8 @@ import {loadLocalEnv, hasDatabaseUrl, listPredictions} from './db.mjs';
 export const SESSION_TTL_MS = 12 * 60 * 60 * 1000;
 
 export const ADMIN_SECURITY_HEADERS = {
-  'Cache-Control': 'no-store, no-cache, must-revalidate',
-  'X-Robots-Tag': 'noindex, nofollow, noarchive'
+  'Cache-Control': 'no-store, no-cache, must-revalidate, private',
+  'X-Robots-Tag': 'noindex, nofollow, noarchive, nosnippet, noimageindex'
 };
 
 export function safeEqual(a, b) {
